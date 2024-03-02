@@ -1,7 +1,7 @@
 from typing import cast
 
 import telegram
-from telegram import Chat, InlineKeyboardMarkup, Update
+from telegram import Chat, InlineKeyboardMarkup, Update, ReplyKeyboardMarkup
 from telegram.ext import ContextTypes
 
 
@@ -9,7 +9,7 @@ async def send_response(
     update: Update,
     context: ContextTypes.DEFAULT_TYPE,
     response: str,
-    keyboard: InlineKeyboardMarkup | None = None,
+    keyboard: InlineKeyboardMarkup | ReplyKeyboardMarkup | None = None,
 ) -> None:
     args = {
         "chat_id": _get_chat_id(update),
