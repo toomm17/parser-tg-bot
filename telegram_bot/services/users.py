@@ -1,5 +1,4 @@
 import logging
-
 from dataclasses import dataclass
 
 from telegram_bot.db import execute, fetch_one
@@ -40,7 +39,7 @@ async def get_user_by_id(telegram_user_id: int) -> User | None:
 async def get_user_by_name(telegram_username: str) -> User | None:
     result = await fetch_one(
         'SELECT * FROM users WHERE username = (:username)',
-        {'useranem': telegram_username}
+        {'username': telegram_username}
     )
     return User(**result) if result else None
 

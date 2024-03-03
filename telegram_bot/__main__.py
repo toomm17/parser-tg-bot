@@ -4,6 +4,7 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     MessageHandler,
+    filters
 )
 
 from telegram_bot import config, handlers
@@ -21,7 +22,13 @@ COMMAND_HANDLERS = {
     'help': handlers.help_
 }
 
-MESSAGE_HANDLERS = {}
+MESSAGE_HANDLERS = {
+    filters.Text('Buy subscription'): handlers.buy_sub,
+}
+
+CALLBACK_HANDLERS = {
+
+}
 
 if not config.TELEGRAM_BOT_TOKEN:
     raise Exception(
@@ -35,8 +42,8 @@ def main() -> None:
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name, command_handler))
 
-    for message, message_handler in MESSAGE_HANDLERS.items():
-        application.add_handler(MessageHandler(message, message_handler))
+    for filter, message_handler in MESSAGE_HANDLERS.items():
+        application.add_handler(MessageHandler(filter, message_handler))
 
     application.run_polling()
 
