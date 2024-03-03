@@ -2,13 +2,12 @@ import logging
 
 from telegram.ext import (
     ApplicationBuilder,
-    CallbackQueryHandler,
     CommandHandler,
     MessageHandler,
-    filters,
 )
 
 from telegram_bot import config, handlers
+from telegram_bot.db import close_db
 
 
 logging.basicConfig(
@@ -50,4 +49,5 @@ if __name__ == '__main__':
 
         logger.warning(traceback.format_exc())
 
-
+    finally:
+        close_db()
