@@ -8,7 +8,6 @@ from telegram_bot import config
 
 
 async def get_db() -> aiosqlite.Connection:
-    print(config.SQLITE_DB_FILE)
     if not getattr(get_db, "db", None):
         db = await aiosqlite.connect(config.SQLITE_DB_FILE)
         get_db.db = db
