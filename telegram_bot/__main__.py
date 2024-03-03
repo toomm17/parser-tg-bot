@@ -18,7 +18,8 @@ logger = logging.getLogger(__name__)
 
 
 COMMAND_HANDLERS = {
-    'start': handlers.start
+    'start': handlers.start,
+    'help': handlers.help_
 }
 
 MESSAGE_HANDLERS = {}
