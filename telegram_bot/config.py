@@ -9,3 +9,5 @@ load_dotenv()
 TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN', '')
 
 BASE_DIR = Path(__file__).resolve().parent
+
+SQLITE_DB_FILE = BASE_DIR.parent / 'telegram-bot.db'
