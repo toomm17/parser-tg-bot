@@ -25,6 +25,14 @@ COMMAND_HANDLERS = {
 
 MESSAGE_HANDLERS = {
     filters.Text('Buy subscription'): handlers.buy_sub,
+    filters.Text('HELP'): handlers.help_,
+    filters.Text('Menu'): handlers.menu,
+    filters.Text('All notifications'): handlers.all_notifications,
+    filters.Text('OnlyDumps'): handlers.only_dumps,
+    filters.Text('Min liquidity: '): handlers.min_liquidity,
+    filters.Text('Min dump: '): handlers.min_dump,
+    filters.Text('Min pump: '): handlers.min_pump,
+    filters.Text('Back to MAIN MENU'): handlers.start,
 }
 
 CALLBACK_HANDLERS = {
