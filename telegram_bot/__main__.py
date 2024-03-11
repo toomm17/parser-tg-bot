@@ -2,13 +2,13 @@ import logging
 
 from telegram.ext import (
     ApplicationBuilder,
-    CallbackQueryHandler,
     CommandHandler,
     MessageHandler,
-    filters,
+    filters
 )
 
 from telegram_bot import config, handlers
+from telegram_bot.db import close_db
 
 
 logging.basicConfig(
@@ -19,10 +19,25 @@ logger = logging.getLogger(__name__)
 
 COMMAND_HANDLERS = {
     'start': handlers.start,
-    'help': handlers.help_
+    'help': handlers.help_,
+    'settings': handlers.settings
 }
 
-MESSAGE_HANDLERS = {}
+MESSAGE_HANDLERS = {
+    filters.Text('Buy subscription'): handlers.buy_sub,
+    filters.Text('HELP'): handlers.help_,
+    filters.Text('Menu'): handlers.menu,
+    filters.Text('All notifications'): handlers.all_notifications,
+    filters.Text('OnlyDumps'): handlers.only_dumps,
+    filters.Text('Min liquidity: '): handlers.min_liquidity,
+    filters.Text('Min dump: '): handlers.min_dump,
+    filters.Text('Min pump: '): handlers.min_pump,
+    filters.Text('Back to MAIN MENU'): handlers.start,
+}
+
+CALLBACK_HANDLERS = {
+
+}
 
 if not config.TELEGRAM_BOT_TOKEN:
     raise Exception(
@@ -36,8 +51,8 @@ def main() -> None:
     for command_name, command_handler in COMMAND_HANDLERS.items():
         application.add_handler(CommandHandler(command_name, command_handler))
 
-    for message, message_handler in MESSAGE_HANDLERS.items():
-        application.add_handler(MessageHandler(message, message_handler))
+    for filter, message_handler in MESSAGE_HANDLERS.items():
+        application.add_handler(MessageHandler(filter, message_handler))
 
     application.run_polling()
 
@@ -50,4 +65,5 @@ if __name__ == '__main__':
 
         logger.warning(traceback.format_exc())
 
-
+    finally:
+        close_db()
